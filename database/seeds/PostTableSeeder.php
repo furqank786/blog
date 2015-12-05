@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PostTableSeeder extends Seeder
+class PostsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class PostTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('post')->insert([
+        DB::table('posts')->insert([
             'post_author' => '1',
             'category_id' => '1',
             'post_date' => date('Y-m-d H:i:s'),

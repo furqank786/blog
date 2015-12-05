@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreatePostTable extends Migration
      */
     public function up()
     {
-        Schema::create('post', function (Blueprint $table){
+        Schema::create('posts', function (Blueprint $table){
             $table->increments('id');
             $table->integer('post_author')->unsigned();
             $table->integer('category_id')->unsigned();
@@ -22,8 +22,8 @@ class CreatePostTable extends Migration
             $table->string('post_status');
             $table->string('post_type');
             $table->timestamps();
-            $table->foreign('post_author')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+//            $table->foreign('post_author')->references('id')->on('users');
+//            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -34,6 +34,6 @@ class CreatePostTable extends Migration
      */
     public function down()
     {
-        Schema::drop('post');
+        Schema::drop('posts');
     }
 }

@@ -19,7 +19,7 @@ class CreatePostCommentsTable extends Migration
             $table->string('post_comments_excerpt');
             $table->string('post_comments_status');
             $table->timestamps();
-            $table->foreign('post_id')->references('id')->on('post');
+//            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 

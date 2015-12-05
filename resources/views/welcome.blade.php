@@ -1,3 +1,4 @@
+@extends('app')
 <!DOCTYPE html>
 <html>
     <head>

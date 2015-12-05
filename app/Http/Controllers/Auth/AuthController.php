@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Blog\Http\Controllers\Auth;
 
-use App\User;
+use Blog\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Blog\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Contracts\Auth\Guard;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
@@ -22,6 +24,9 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+    //protected $redirectTo = 'posts';
+
 
     /**
      * Create a new authentication controller instance.
@@ -42,9 +47,11 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'firstname' => 'required|max:255',
+            'lastname' => 'max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:3',
+            'password_confirmation' => 'required|min:3'
         ]);
     }
 
@@ -55,9 +62,10 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
+    {   
         return User::create([
-            'name' => $data['name'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

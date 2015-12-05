@@ -1,2 +1,10 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import 'partials/home';
+body{
+	padding-top: 40px;
+}
+
+body, label {
+	font-weight: 300;
+}
 
