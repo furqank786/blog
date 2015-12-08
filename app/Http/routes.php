@@ -15,11 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('home', 'PostsController@index');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController'
 ]);
 
+
+//Route::get('/auth/activateaccount',function(){
+//    return 'thi is ativvvv';
+//});
+//Route::get('activate/{code}', 'Auth\AuthController@activateAccount');
+    
+    
 // Registration routes...
 // Route::get('auth/register', 'Auth\AuthController@register');
 // Route::post('auth/register', 'Auth\AuthController@postRegister');
@@ -28,6 +37,12 @@ Route::controllers([
 Route::get('/users/create','UsersController@create');
 Route::get('/users/login','UsersController@login');
 Route::get('/users/changepassword','UsersController@changepassword');
+Route::get('/users/activateaccount','UsersController@activateaccount');
+//Route::post('/users/activateaccount/{code}',function($code){
+//    return view('users.activateaccount');
+//});
+Route::post('/users/activateaccount','UsersController@activateaccount');
+
 Route::resource('users','UsersController');
 
 // Route::get('posts/create', 'PostsController@create');
@@ -37,4 +52,3 @@ Route::resource('users','UsersController');
 // Route::post('posts/{id}/edit','PostsController@edit');
 Route::resource('posts', 'PostsController');
 
-Route::get('home','PostsController@index');

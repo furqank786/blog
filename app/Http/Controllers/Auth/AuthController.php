@@ -4,6 +4,7 @@ namespace Blog\Http\Controllers\Auth;
 
 use Blog\User;
 use Validator;
+use Mail;
 use Blog\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Contracts\Auth\Guard;
@@ -25,7 +26,9 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-    //protected $redirectTo = 'posts';
+    protected $loginPath = '/login';
+    protected $redirectTo = '/posts';
+    protected $redirectAfterLogout = '/';
 
 
     /**
@@ -63,11 +66,21 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {   
-        return User::create([
+        
+        $activation_code = rand();
+        $user =  User::create([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'activation_code' => $activation_code
         ]);
+        Mail::send('users.confirmation', ['user' => $user], function ($m) use ($user) {
+            $m->from('admin@blog.com', 'My Blog');
+
+            $m->to($user->email, $user->firstname)->subject('Your blog activation code!');
+        });
+        return $user;
     }
+    
 }
