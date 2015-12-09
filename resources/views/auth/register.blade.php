@@ -38,6 +38,11 @@
 			{!! Form::submit('Register', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+                <div class="col-sm-10"><a href={{URL::to('auth/login')}}>Already Registered!</a>
+            </div>
+        </div>
 {!! Form::close() !!}
 
 @if($errors->any())

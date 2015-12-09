@@ -4,14 +4,18 @@ namespace Blog\Http\Controllers;
 use Blog\Post;
 
  
- use Blog\Http\Requests\CreatePostRequest;
-
+use Blog\Http\Requests\CreatePostRequest;
+use Session;
+//use Auth;
 use Blog\Http\Controllers\Controller;
 use Request;// use Illuminate\Http\Request;
 class PostsController extends Controller
 {
     public function index()
     {
+        //echo '<pre>';print_r(Session::all());
+//        echo Auth::user().'@@@';
+//        echo Auth::user()->email;
         $posts = Post::orderBy('post_date', 'desc')->get();
         return view('posts.index',compact('posts'));
     }
@@ -33,7 +37,7 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request)
     {
         $input = Request::all();
-        exit;
+        //exit;
         $input['post_date'] = date('Y-m-d');
         Post::create($input);
         return redirect('posts');

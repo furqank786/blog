@@ -11,11 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostsController@index');
 
 Route::resource('home', 'PostsController@index');
+Route:get('/auth','PostsController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

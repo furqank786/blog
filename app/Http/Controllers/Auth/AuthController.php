@@ -4,12 +4,16 @@ namespace Blog\Http\Controllers\Auth;
 
 use Blog\User;
 use Validator;
+use Session;
 use Mail;
 use Blog\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Contracts\Auth\Guard;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class AuthController extends Controller
 {
@@ -26,8 +30,8 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-    protected $loginPath = '/login';
-    protected $redirectTo = '/posts';
+    protected $loginPath = '/auth/login';
+    protected $redirectTo = '/users/activateaccount';
     protected $redirectAfterLogout = '/';
 
 
@@ -75,12 +79,43 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
             'activation_code' => $activation_code
         ]);
+        Session::put('user', $user);
         Mail::send('users.confirmation', ['user' => $user], function ($m) use ($user) {
             $m->from('admin@blog.com', 'My Blog');
 
             $m->to($user->email, $user->firstname)->subject('Your blog activation code!');
         });
         return $user;
+    }
+    
+    public function postLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->loginUsername() => 'required', 'password' => 'required',
+        ]);
+
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
+
+        $credentials = $this->getCredentials($request);
+        $credentials['status'] = 'active';
+     
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }
+
+        if ($throttles) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return redirect($this->loginPath())
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors([
+                $this->loginUsername() => 'User credentials does not match or account is not active.',
+            ]);
     }
     
 }

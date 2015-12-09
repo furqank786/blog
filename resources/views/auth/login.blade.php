@@ -21,5 +21,20 @@
 			{!! Form::submit('Login', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+                <div class="col-sm-10"><a href={{URL::to('password/email')}}>Forgot password</a>
+            </div>
+        </div>
+            
 {!! Form::close() !!}
+
+@if($errors->any())
+    <ul class="alert alert-danger">
+        @foreach($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+    </ul>
+@endif
+
 @stop
