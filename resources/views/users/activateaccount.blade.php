@@ -1,7 +1,15 @@
-@extends('app')
-@section('content')
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/all.css')}}">
+    </head>
+<body id="background">
+	<div class="container">
 {!! Form::open(['class' => 'form-horizontal', 'id' => 'blogform']) !!}
 	<h1>Activate Account</h1>
+        @include('errors.list')
         <div style="text-align: center;">Please enter the code in the text field and press the activate button to activate your account</div>
         <br>
         
@@ -19,12 +27,7 @@
 	</div>
 {!! Form::close() !!}
 
-@if($errors->any())
-    <ul class="alert alert-danger">
-        @foreach($errors->all() as $error)
-        <li>{{$error}}</li>
-        @endforeach
-    </ul>
-@endif
+</div>
+</body>
 
-@stop
+</html>

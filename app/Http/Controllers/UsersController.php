@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Blog\Http\Requests;
 use Blog\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -90,10 +91,27 @@ class UsersController extends Controller
         return view('users.login');
     }
 
-    public function changepassword()
+    public function changepassword(Request $request)
     {
-        //return 'cahgne password';
-        return view('users.changepassword');
+        if($request->all()){
+            $this->validate($request, [
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6'
+        ]);
+           
+            $user = \Blog\User::findOrFail($request->id);
+           
+        // Validate the new password length...
+
+        $user->fill([
+            'password' => Hash::make($request->password)
+        ])->save();
+        
+        return view('users.updatepassword');
+        } else{
+            $user = \Session::get('user');
+            return view('users.changepassword', compact( 'user' ,$user));
+        }
     }
     
     public function activateaccount(Request $request)
@@ -124,4 +142,18 @@ class UsersController extends Controller
             return view('users.activateaccount');
         }
     }
+    
+//    public function updatepassword(Request $request)
+//    {
+//        $user = User::findOrFail($id);
+//        print_r($user);
+//        exit;
+//        // Validate the new password length...
+//
+//        $user->fill([
+//            'password' => Hash::make($request->newPassword)
+//        ])->save();
+//        
+//        return view('users.updatepassword');
+//    }
 }

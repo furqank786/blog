@@ -3,6 +3,7 @@
 <hr>
 {!! Form::open(['route' => '', 'class' => 'form-horizontal', 'id' => 'blogform']) !!}
 	<h1>User Login</h1>
+        @include('errors.list')
 	<div class="form-group">
 		{!! Form::label('email', 'Email:', ['class' => 'control-label col-sm-2'])  !!}
 		<div class="col-sm-10">

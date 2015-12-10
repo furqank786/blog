@@ -2,6 +2,7 @@
 @section('content')
 {!! Form::open(['class' => 'form-horizontal', 'id' => 'blogform']) !!}
 	<h1>User Registration</h1>
+        @include('errors.list')
 	<div class="form-group">
 		{!! Form::label('firstname', 'First Name:', ['class' => 'control-label col-sm-2']) !!}
 		 <div class="col-sm-10">
@@ -45,11 +46,4 @@
         </div>
 {!! Form::close() !!}
 
-@if($errors->any())
-    <ul class="alert alert-danger">
-        @foreach($errors->all() as $error)
-        <li>{{$error}}</li>
-        @endforeach
-    </ul>
-@endif
 @stop

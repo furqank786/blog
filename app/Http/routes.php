@@ -41,6 +41,7 @@ Route::get('/users/activateaccount','UsersController@activateaccount');
 //    return view('users.activateaccount');
 //});
 Route::post('/users/activateaccount','UsersController@activateaccount');
+Route::post('/users/changepassword','UsersController@changepassword');
 
 Route::resource('users','UsersController');
 

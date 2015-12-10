@@ -31,8 +31,10 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     protected $loginPath = '/auth/login';
-    protected $redirectTo = '/users/activateaccount';
+    protected $redirectTo = '/posts';
+    protected $redirectPath = '/posts';
     protected $redirectAfterLogout = '/';
+    
 
 
     /**
@@ -57,8 +59,8 @@ class AuthController extends Controller
             'firstname' => 'required|max:255',
             'lastname' => 'max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:3',
-            'password_confirmation' => 'required|min:3'
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6'
         ]);
     }
 
@@ -86,6 +88,7 @@ class AuthController extends Controller
             $m->to($user->email, $user->firstname)->subject('Your blog activation code!');
         });
         return $user;
+       
     }
     
     public function postLogin(Request $request)
@@ -118,4 +121,19 @@ class AuthController extends Controller
             ]);
     }
     
+    public function postRegister(Request $request)
+
+{
+$validator = $this->validator($request->all());
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        } 
+
+        Auth::login($this->create($request->all()));
+    return redirect('/users/activateaccount');
+
+}
+
 }
