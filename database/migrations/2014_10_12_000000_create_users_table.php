@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->string('activation_code',60);
             $table->string('status',50);
+            $table->string('photo');
             //$table->enum('role',['admin','registered','guest']);
             //$table->string('status');
             $table->rememberToken();

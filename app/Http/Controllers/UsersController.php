@@ -60,7 +60,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = base64_decode($id);
+        $user = \Blog\User::findorfail($id);
+        return view('users.edit',  compact('user'));
     }
 
     /**
@@ -72,7 +74,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = \Blog\User::findorfail($id);
+        $user->update($request->all());
+        \Session::flash('profile_update','Your profile has been successfully updated!');
+        return view('users.edit', compact( 'user' ,$user));
+        //return redirect('posts');
     }
 
     /**
@@ -103,11 +109,11 @@ class UsersController extends Controller
            
         // Validate the new password length...
 
-        $user->fill([
-            'password' => Hash::make($request->password)
-        ])->save();
-        
-        return view('users.updatepassword');
+            $user->fill([
+                'password' => Hash::make($request->password)
+            ])->save();
+            \Session::flash('change_password','Your password has been successfully updated!');
+            return view('users.changepassword', compact( 'user' ,$user));
         } else{
             $user = \Session::get('user');
             return view('users.changepassword', compact( 'user' ,$user));
@@ -116,6 +122,8 @@ class UsersController extends Controller
     
     public function activateaccount(Request $request)
     {
+                
+                
         if($request->all()){
             $validator = Validator::make($request->all(), [
                 'activation_code' => 'required',
@@ -142,7 +150,7 @@ class UsersController extends Controller
             return view('users.activateaccount');
         }
     }
-    
+   
 //    public function updatepassword(Request $request)
 //    {
 //        $user = User::findOrFail($id);

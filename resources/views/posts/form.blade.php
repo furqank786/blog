@@ -6,7 +6,7 @@
     </div>
 
     <div class="form-group">
-            {!! Form::label('body', 'Text:', ['class' => 'control-label col-sm-2']) !!}
+            {!! Form::label('body', 'Description:', ['class' => 'control-label col-sm-2']) !!}
             <div class="col-sm-10">
             	{!! Form::textarea('post_excerpt', null, ['class' => 'form-control']) !!}
         	</div>

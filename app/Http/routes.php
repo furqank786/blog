@@ -36,10 +36,20 @@ Route::controllers([
 Route::get('/users/create','UsersController@create');
 Route::get('/users/login','UsersController@login');
 Route::get('/users/changepassword','UsersController@changepassword');
-Route::get('/users/activateaccount','UsersController@activateaccount');
-//Route::post('/users/activateaccount/{code}',function($code){
-//    return view('users.activateaccount');
+
+Route::get('/users/edit/{id}','UsersController@edit');
+//Route::get('users/{id}/editprofile', function ($id) {
+//    
 //});
+
+//Route::get('/users/editprofile/{id}', function($id){
+     
+//    return url('/users/editprofile');
+//});
+//Route::post('/users/activateaccount/{code}',function($code){
+//    return view('users.ac/tivateaccount');
+//});
+Route::get('/users/activateaccount','UsersController@activateaccount');
 Route::post('/users/activateaccount','UsersController@activateaccount');
 Route::post('/users/changepassword','UsersController@changepassword');
 

@@ -6,7 +6,7 @@ use Blog\Post;
  
 use Blog\Http\Requests\CreatePostRequest;
 use Session;
-//use Auth;
+use Illuminate\Support\Facades\DB;
 use Blog\Http\Controllers\Controller;
 use Request;// use Illuminate\Http\Request;
 class PostsController extends Controller
@@ -16,16 +16,28 @@ class PostsController extends Controller
         //echo '<pre>';print_r(Session::all());
 //        echo Auth::user().'@@@';
 //        echo Auth::user()->email;
-        $posts = Post::orderBy('post_date', 'desc')->get();
+        //$posts = Post::orderBy('post_date', 'desc')->get();
+        $posts = DB::table('posts')
+                        ->join('users', function($join)
+                        {
+                            $join->on('posts.post_author', '=', 'users.id');
+                        })
+                        ->get();
         return view('posts.index',compact('posts'));
     }
     
     public function show($id)
     {
-       $post = Post::findorfail($id);
-//       if(is_null($post)){
-//           abort(404);
-//       }
+    $post = DB::table('posts')
+                ->join('users', function($join)
+                {
+                    $join->on('posts.post_author', '=', 'users.id');
+
+                })
+                ->where('posts.id', $id)
+
+                ->first();   
+    
        return view('posts.show',  compact('post'));
     }
     

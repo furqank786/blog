@@ -13,4 +13,9 @@ class Post extends Model
         'post_excerpt',
         'post_date'
     ];
+    
+    public function getDates()
+    {
+        return array('post_date');
+    }
 }

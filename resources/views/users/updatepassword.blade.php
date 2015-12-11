@@ -1,7 +1,6 @@
 @extends('app')
 @section('content')
-<hr>
-
-<h1>Your password successfully changed!</h1>
-
+<div class="well">
+<h4 class="alert alert-success">Your password has been successfully updated!</h4>
+</div>
 @stop
