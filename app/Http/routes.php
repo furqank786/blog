@@ -52,7 +52,10 @@ Route::get('/users/edit/{id}','UsersController@edit');
 Route::get('/users/activateaccount','UsersController@activateaccount');
 Route::post('/users/activateaccount','UsersController@activateaccount');
 Route::post('/users/changepassword','UsersController@changepassword');
-
+//Route::get('/users/login',function(){
+//    //return 'users login page';
+//    return view('users.login');
+//});
 Route::resource('users','UsersController');
 
 // Route::get('posts/create', 'PostsController@create');
@@ -61,4 +64,7 @@ Route::resource('users','UsersController');
 // Route::post('posts','PostsController@store');
 // Route::post('posts/{id}/edit','PostsController@edit');
 Route::resource('posts', 'PostsController');
+Route::get('/admin/login','AdminController@getLogin');
+Route::post('/admin/postLogin','AdminController@postLogin');
+Route::resource('admin', 'AdminController');
 

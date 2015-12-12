@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <div class="well">
-{!! Form::open([ 'class' => 'form-horizontal', 'id' => 'blogform']) !!}
+{!! Form::open(['class' => 'form-horizontal', 'id' => 'blogform']) !!}
 	<h1>User Login</h1>
         @include('errors.list')
         

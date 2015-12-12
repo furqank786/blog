@@ -1,7 +1,7 @@
-@extends('app')
+@extends('admin')
 @section('content')
 <hr>
-{!! Form::open(['route' => '', 'class' => 'form-horizontal', 'id' => 'blogform']) !!}
+{!! Form::open([ 'class' => 'form-horizontal', 'id' => 'blogform']) !!}
 	<h1>User Login</h1>
         @include('errors.list')
 	<div class="form-group">
