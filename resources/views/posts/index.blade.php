@@ -1,5 +1,4 @@
 @extends('app')
-
 @section('content')
 <!--<div class="well">-->
 <!--    <h1>Welcome to New Blog!</h1>-->

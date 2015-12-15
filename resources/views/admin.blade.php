@@ -42,13 +42,13 @@
                             <span class="profile-ava">
                                 <img alt="" src="{{ URL::asset('css/images/avatar1_small.jpg')}}">
                             </span>
-                            <span class="username">Admin </span>
+                            <span class="username">{{Auth::user()->firstname}} </span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> My Profile</a>
+                                <a href="{{ url('/admin/profile') }}"><i class="icon_profile"></i> My Profile</a>
                             </li>
                             <li>
                                 <a href="{{ url('/admin/logout') }}"><i class="icon_key_alt"></i>  Log Out</a>
@@ -75,7 +75,7 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" class="">
+                      <a href="{{ url('/users') }}" class="">
                           <i class="icon_table"></i>
                           <span>Manage Users</span>
                           <span class=""></span>

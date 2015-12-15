@@ -13,9 +13,6 @@ class PostsController extends Controller
 {
     public function index()
     {
-        //echo '<pre>';print_r(Session::all());
-//        echo Auth::user().'@@@';
-//        echo Auth::user()->email;
         //$posts = Post::orderBy('post_date', 'desc')->get();
         $posts = DB::table('posts')
                         ->join('users', function($join)

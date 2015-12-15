@@ -17,7 +17,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        
+        $users = \Blog\User::orderBy('created_at', 'desc')
+                        ->where('email','!=','admin@blog.com')
+                        ->get();
+        return view('users.index',  compact('users'));
     }
 
     /**
@@ -150,7 +154,7 @@ class UsersController extends Controller
             return view('users.activateaccount');
         }
     }
-   
+    
 //    public function updatepassword(Request $request)
 //    {
 //        $user = User::findOrFail($id);

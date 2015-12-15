@@ -63,8 +63,19 @@ Route::resource('users','UsersController');
 // Route::get('posts/{id}', 'PostsController@show');
 // Route::post('posts','PostsController@store');
 // Route::post('posts/{id}/edit','PostsController@edit');
+Route::get('/admin/logout', 'AdminController@getLogout');
+Route::get('/admin/profile', function(){
+    return view('admin.profile');
+});
+Route::get('/admin/login',function(){
+    return view('admin.login');
+});
+
 Route::resource('posts', 'PostsController');
-Route::get('/admin/login','AdminController@getLogin');
 Route::post('/admin/postLogin','AdminController@postLogin');
-Route::resource('admin', 'AdminController');
+//Route::resource('admin', 'AdminController');
+Route::get('/admin',function(){
+    return view('admin.dashboard');
+});
+Route::get('/users','UsersController@index');
 
