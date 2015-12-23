@@ -7,6 +7,7 @@ use Validator;
 use Blog\Http\Requests;
 use Blog\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use URL;
 
 class UsersController extends Controller
 {
@@ -82,6 +83,7 @@ class UsersController extends Controller
         $user->update($request->all());
         \Session::flash('profile_update','Your profile has been successfully updated!');
         return view('users.edit', compact( 'user' ,$user));
+        //return url(URL::previous()) ;
         //return redirect('posts');
     }
 
@@ -153,6 +155,13 @@ class UsersController extends Controller
         } else{
             return view('users.activateaccount');
         }
+    }
+    
+    public function edituser($id)
+    {
+        $id = base64_decode($id);
+        $user = \Blog\User::findorfail($id);
+        return view('users.edituser',  compact('user'));
     }
     
 //    public function updatepassword(Request $request)

@@ -42,7 +42,11 @@
                             <span class="profile-ava">
                                 <img alt="" src="{{ URL::asset('css/images/avatar1_small.jpg')}}">
                             </span>
-                            <span class="username">{{Auth::user()->firstname}} </span>
+                            <span class="username">
+                                @if(isset(Auth::user()->firstname))
+                                    {{ Auth::user()->firstname }}
+                                @endif
+                            </span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">

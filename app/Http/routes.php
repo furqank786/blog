@@ -38,6 +38,7 @@ Route::get('/users/login','UsersController@login');
 Route::get('/users/changepassword','UsersController@changepassword');
 
 Route::get('/users/edit/{id}','UsersController@edit');
+Route::get('/users/edituser/{id}','UsersController@edituser');
 //Route::get('users/{id}/editprofile', function ($id) {
 //    
 //});

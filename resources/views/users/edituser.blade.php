@@ -1,4 +1,4 @@
-@extends('app')
+@extends('admin')
 @section('content')
 <div class="well">
     {!! Form::open(['method' => 'PATCH', 'url' => 'users/'.$user->id,'class' => 'form-horizontal', 'id' => 'blogform']) !!}
