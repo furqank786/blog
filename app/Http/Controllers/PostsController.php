@@ -9,8 +9,15 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use Blog\Http\Controllers\Controller;
 use Request;// use Illuminate\Http\Request;
+use \URL;
+use Illuminate\Support\Facades\Auth;
+
 class PostsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth',['except' => 'index']);
+    }
+
     public function index()
     {
         //$posts = Post::orderBy('post_date', 'desc')->get();
@@ -40,6 +47,9 @@ class PostsController extends Controller
     
     public function create()
     {
+        if(Auth::guest()){
+            return redirect('posts');
+        }
         return view('posts.create');
     }
 
@@ -63,6 +73,49 @@ class PostsController extends Controller
     {
         $post = Post::findorfail($id);
         $post->update(Request::all());
+        \Session::flash('post_updated','Post has been successfully updated!');
+        if(strstr(URL::previous(),'editpost')){
+            return redirect('posts/all');
+        } else {
+            return view('posts');
+        }
+        
         return redirect('posts');
+    }
+    
+    public function all()
+    {
+        //$posts = Post::orderBy('post_date', 'desc')->get();
+        $posts = DB::table('posts')
+                        ->join('users', function($join)
+                        {
+                            $join->on('posts.post_author', '=', 'users.id');
+                        })
+                        ->select('posts.*','users.id as userid','users.firstname','users.lastname')
+                        ->where('posts.post_status', '=', 'active')
+                        ->get();
+                        //echo '<pre>';print_r($posts);
+        return view('posts.all',compact('posts'));
+    }
+    
+    public function editpost($id)
+    {
+        $id = base64_decode($id);
+        $post = Post::findorfail($id);
+
+        return view('posts.editpost',compact('post'));
+    }
+    
+    public function deletepost($id)
+    {  
+       if($id){
+            $id = base64_decode($id);
+            $post = \Blog\Post::findOrFail($id);
+              $post->update([
+                 'post_status' => 'inactive'
+             ]);//->save();
+             \Session::flash('delete_post','Post has been successfully deleted!');
+             return redirect('posts/all');
+       }
     }
 }

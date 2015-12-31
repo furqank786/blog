@@ -17,7 +17,14 @@
           <script src="js/lte-ie7.js"></script>
         <![endif]-->
 
-        
+        <!-- javascripts -->
+    <script src="{{ URL::asset('js/jquery.js')}}"></script>
+    <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
+    <!-- nicescroll -->
+    <script src="{{ URL::asset('js/jquery.scrollTo.min.js')}}"></script>
+    <script src="{{ URL::asset('js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+    <!--custome script for all page-->
+    <script src="{{ URL::asset('js/scripts.js')}}"></script>
     </head>
 <body >
     
@@ -80,21 +87,21 @@
                   </li>
                   <li class="sub-menu">
                       <a href="{{ url('/users') }}" class="">
-                          <i class="icon_table"></i>
+                          <i class="fa fa-users"></i>
                           <span>Manage Users</span>
                           <span class=""></span>
                       </a>
                   </li>
                     <li class="sub-menu">
-                      <a href="javascript:;" class="">
-                          <i class="icon_document_alt"></i>
+                      <a href="{{ url('/posts/all') }}" class="">
+                          <i class="fa fa-book"></i>
                           <span>Manage Posts</span>
                           <span class=""></span>
                       </a>
                   </li>       
                  <li class="sub-menu">
                       <a href="javascript:;" class="">
-                          <i class="icon_documents_alt"></i>
+                          <i class="fa fa-comments"></i>
                           <span>Manage Comments</span>
                           <span class=""></span>
                       </a>
@@ -119,14 +126,7 @@
       <!--main content end-->
   </section>
   <!-- container section end -->
-    <!-- javascripts -->
-    <script src="{{ URL::asset('js/jquery.js')}}"></script>
-    <script src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
-    <!-- nicescroll -->
-    <script src="{{ URL::asset('js/jquery.scrollTo.min.js')}}"></script>
-    <script src="{{ URL::asset('js/jquery.nicescroll.js')}}" type="text/javascript"></script>
-    <!--custome script for all page-->
-    <script src="{{ URL::asset('js/scripts.js')}}"></script>
+    
 
 
   </body>

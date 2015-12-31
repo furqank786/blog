@@ -12,8 +12,10 @@
 */
 
 Route::get('/', 'PostsController@index');
-
+Route::get('/posts/all','PostsController@all');
+Route::get('/posts/deletepost/{id}','PostsController@deletepost');
 Route::resource('home', 'PostsController@index');
+Route::get('/posts/editpost/{id}','PostsController@editpost');
 Route:get('/auth','PostsController@index');
 
 Route::controllers([
@@ -39,6 +41,8 @@ Route::get('/users/changepassword','UsersController@changepassword');
 
 Route::get('/users/edit/{id}','UsersController@edit');
 Route::get('/users/edituser/{id}','UsersController@edituser');
+Route::get('/users/deleteuser/{id}','UsersController@deleteuser');
+//Route::post('/users/deleteuser','UsersController@deleteuser');
 //Route::get('users/{id}/editprofile', function ($id) {
 //    
 //});
@@ -75,8 +79,9 @@ Route::get('/admin/login',function(){
 Route::resource('posts', 'PostsController');
 Route::post('/admin/postLogin','AdminController@postLogin');
 //Route::resource('admin', 'AdminController');
-Route::get('/admin',function(){
-    return view('admin.dashboard');
-});
+//Route::get('/admin',function(){
+//    return view('admin.dashboard');
+//});
+Route::get('/admin','AdminController@index');
 Route::get('/users','UsersController@index');
 

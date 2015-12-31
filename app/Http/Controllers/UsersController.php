@@ -8,6 +8,7 @@ use Blog\Http\Requests;
 use Blog\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use URL;
+use \Route;
 
 class UsersController extends Controller
 {
@@ -21,6 +22,7 @@ class UsersController extends Controller
         
         $users = \Blog\User::orderBy('created_at', 'desc')
                         ->where('email','!=','admin@blog.com')
+                        ->where('status','=','active')
                         ->get();
         return view('users.index',  compact('users'));
     }
@@ -78,11 +80,23 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    { 
+        $id = base64_decode($id);
         $user = \Blog\User::findorfail($id);
         $user->update($request->all());
-        \Session::flash('profile_update','Your profile has been successfully updated!');
-        return view('users.edit', compact( 'user' ,$user));
+        \Session::flash('profile_update','User has been successfully updated!');
+        if(strstr(URL::previous(),'edituser')){
+            //return view('users.edituser', compact( 'user' ,$user));
+            return redirect('users');
+            //exit('redirect code will come here');
+        } else {
+            //return redirect('users');
+           return view('users.edit', compact( 'user' ,$user));
+           //redirect('/');
+        }
+        
+        //exit;
+        //return view('users.edituser', compact( 'user' ,$user));
         //return url(URL::previous()) ;
         //return redirect('posts');
     }
@@ -164,6 +178,19 @@ class UsersController extends Controller
         return view('users.edituser',  compact('user'));
     }
     
+    public function deleteuser($id)
+    {  
+       if($id){
+            $id = base64_decode($id);
+            $user = \Blog\User::findOrFail($id);
+              $user->update([
+                 'status' => 'inactive'
+             ]);//->save();
+             \Session::flash('delete_user','User has been successfully deleted!');
+             return redirect('users');
+       }
+    }
+
 //    public function updatepassword(Request $request)
 //    {
 //        $user = User::findOrFail($id);

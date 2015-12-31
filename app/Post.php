@@ -11,7 +11,8 @@ class Post extends Model
     protected $fillable = [
         'post_title',
         'post_excerpt',
-        'post_date'
+        'post_date',
+        'post_status'
     ];
     
     public function getDates()

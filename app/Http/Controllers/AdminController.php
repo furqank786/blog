@@ -33,6 +33,14 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     
+    public function __construct() {
+        $this->middleware('auth',['except' => '/admin/login']);
+    }
+    
+    public function index()
+    {
+        return view('admin.dashboard');
+    }
     public function getLogin()
     {
         return view('admin.login');
